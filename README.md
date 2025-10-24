@@ -31,27 +31,7 @@ ShadCN / TailwindCSS (optionnel pour le style)
 
 Node.js & npm
 
-🧩 Structure du projet
-humblehome-frontend/
-├── src/
-│   ├── app/
-│   │   ├── components/
-│   │   │   ├── product-list/
-│   │   │   ├── product-detail/
-│   │   │   ├── header/
-│   │   │   ├── footer/
-│   │   ├── services/
-│   │   │   └── product.service.ts
-│   │   ├── pages/
-│   │   │   ├── home/
-│   │   │   ├── cart/
-│   │   │   ├── about/
-│   │   ├── app-routing.module.ts
-│   │   ├── app.module.ts
-│   ├── assets/
-│   ├── environments/
-│   └── index.html
-└── package.json
+
 
 🚀 Installation & Lancement
 1️⃣ Cloner le dépôt
