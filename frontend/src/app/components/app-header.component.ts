@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
-import { RouterModule } from '@angular/router';
+import { RouterModule, Router } from '@angular/router';
+import { ProductService } from '../services/product.service';
 
 @Component({
   selector: 'app-header',
@@ -17,8 +18,13 @@ export class AppHeaderComponent implements OnInit {
   isSubmenuOpen = false;
   isLanguageMenuOpen = false;
   cartCount = 0;
+  categories: string[] = [];
 
-  constructor(private translate: TranslateService) {}
+  constructor(
+    private translate: TranslateService,
+    private productService: ProductService,
+    private router: Router
+  ) {}
 
   ngOnInit() {
     // Charger le mode sombre depuis localStorage
@@ -30,6 +36,9 @@ export class AppHeaderComponent implements OnInit {
     const savedLang = localStorage.getItem('language') || 'fr';
     this.currentLanguage = savedLang;
     this.translate.use(savedLang);
+
+    // Charger les catégories de produits
+    this.loadCategories();
   }
 
   toggleDarkMode() {
@@ -68,6 +77,7 @@ export class AppHeaderComponent implements OnInit {
 
   toggleMenu() {
     this.isMenuOpen = !this.isMenuOpen;
+    console.log('Menu toggled:', this.isMenuOpen);
   }
 
   closeMenu() {
@@ -88,5 +98,18 @@ export class AppHeaderComponent implements OnInit {
   toggleCart() {
     // Fonctionnalité de panier à implémenter
     console.log('Panier ouvert');
+  }
+
+  loadCategories() {
+    const categoriesData = this.productService.getCategories();
+    this.categories = categoriesData.map(cat => cat.name);
+    console.log('Categories loaded:', this.categories);
+  }
+
+  goToCategory(categoryName: string) {
+    this.closeMenu();
+    this.router.navigate(['/products'], { 
+      queryParams: { category: categoryName } 
+    });
   }
 }

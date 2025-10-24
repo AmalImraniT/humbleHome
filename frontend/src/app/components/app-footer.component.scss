@@ -2,8 +2,16 @@
   background: linear-gradient(135deg, #f34f56 0%, #f45f64 100%);
   color: #fff;
   text-align: center;
-  padding: 60px 20px 30px;
+  padding: 60px 10px 30px;
   font-family: "Poppins", sans-serif;
+  width: 100%;
+
+  .container {
+    width: 100%;
+    max-width: none;
+    margin: 0;
+    padding: 0;
+  }
 
   .brand {
     font-size: 26px;

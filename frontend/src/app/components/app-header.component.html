@@ -19,7 +19,7 @@
       <!-- Logo -->
       <div class="logo">
         <a routerLink="/" class="logo-link">
-          <h1>{{ 'HEADER.LOGO' | translate }}</h1>
+          <img src="assets/image/HumLogo.png" alt="HumbleHome" class="logo-image">
         </a>
       </div>
 
@@ -86,10 +86,9 @@
         <li class="has-submenu">
           <a href="#" (click)="toggleSubmenu($event)">{{ 'MENU.CATEGORIES' | translate }} ▼</a>
           <ul class="submenu" [class.open]="isSubmenuOpen">
-            <li><a href="#" (click)="closeMenu()">{{ 'CATEGORIES.HOME' | translate }}</a></li>
-            <li><a href="#" (click)="closeMenu()">{{ 'CATEGORIES.TECHNOLOGY' | translate }}</a></li>
-            <li><a href="#" (click)="closeMenu()">{{ 'CATEGORIES.DECORATION' | translate }}</a></li>
-            <li><a href="#" (click)="closeMenu()">{{ 'CATEGORIES.SCENT' | translate }}</a></li>
+            <li *ngFor="let category of categories">
+              <a href="#" (click)="goToCategory(category)">{{ category }}</a>
+            </li>
           </ul>
         </li>
         <li><a href="#" (click)="closeMenu()">{{ 'MENU.BUNDLE_SAVE' | translate }}</a></li>
