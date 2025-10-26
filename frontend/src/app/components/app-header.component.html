@@ -36,7 +36,7 @@
         </button>
 
         <!-- Bouton Panier -->
-        <button class="action-btn cart-btn" routerLink="/login" [attr.aria-label]="'HEADER.CART' | translate">
+        <button class="action-btn cart-btn" (click)="toggleCart()" [attr.aria-label]="'HEADER.CART' | translate">
           <span class="btn-icon">🛒</span>
           <span class="cart-count" *ngIf="cartCount > 0">{{ cartCount }}</span>
         </button>

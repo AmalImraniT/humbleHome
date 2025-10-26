@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { RouterModule, Router } from '@angular/router';
 import { ProductService } from '../services/product.service';
+import { NavigationService } from '../services/navigation.service';
 
 @Component({
   selector: 'app-header',
@@ -23,7 +24,8 @@ export class AppHeaderComponent implements OnInit {
   constructor(
     private translate: TranslateService,
     private productService: ProductService,
-    private router: Router
+    private router: Router,
+    private navigationService: NavigationService
   ) {}
 
   ngOnInit() {
@@ -76,8 +78,17 @@ export class AppHeaderComponent implements OnInit {
   }
 
   toggleMenu() {
-    this.isMenuOpen = !this.isMenuOpen;
-    console.log('Menu toggled:', this.isMenuOpen);
+    // Vérifier si on est dans l'espace user ou admin
+    const currentUrl = this.router.url;
+    if (currentUrl.startsWith('/user') || currentUrl.startsWith('/admin')) {
+      // Utiliser le service de navigation pour ouvrir/fermer la sidebar
+      this.navigationService.toggleSidebar();
+      console.log('Sidebar toggled via NavigationService');
+    } else {
+      // Menu normal pour la page d'accueil
+      this.isMenuOpen = !this.isMenuOpen;
+      console.log('Menu toggled:', this.isMenuOpen);
+    }
   }
 
   closeMenu() {
@@ -96,8 +107,13 @@ export class AppHeaderComponent implements OnInit {
   }
 
   toggleCart() {
-    // Fonctionnalité de panier à implémenter
-    console.log('Panier ouvert');
+    // Navigation conditionnelle selon l'espace
+    const currentUrl = this.router.url;
+    if (currentUrl.startsWith('/user')) {
+      this.router.navigate(['/user/cart']);
+    } else {
+      this.router.navigate(['/cart']);
+    }
   }
 
   loadCategories() {

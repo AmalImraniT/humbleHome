@@ -6,6 +6,11 @@
     </div>
 
     <form class="auth-form" (ngSubmit)="onSubmit()" #authForm="ngForm">
+      <!-- Message d'erreur -->
+      <div class="error-message" *ngIf="errorMessage">
+        {{ errorMessage }}
+      </div>
+
       <div class="form-group">
         <label for="email" class="form-label">{{ 'AUTH.EMAIL' | translate }}</label>
         <input
@@ -17,6 +22,7 @@
           email
           class="form-input"
           placeholder="{{ 'AUTH.EMAIL_PLACEHOLDER' | translate }}"
+          [disabled]="isLoading"
         >
       </div>
 
@@ -30,6 +36,7 @@
           required
           class="form-input"
           placeholder="{{ 'AUTH.PASSWORD_PLACEHOLDER' | translate }}"
+          [disabled]="isLoading"
         >
       </div>
 
@@ -41,12 +48,18 @@
         <a href="#" class="forgot-link">{{ 'AUTH.FORGOT_PASSWORD' | translate }}</a>
       </div>
 
+      <!-- Indicateur d'admin -->
+      <div class="admin-info" *ngIf="loginForm.email === 'admin@humblehome.com' || loginForm.email === 'admin@example.com'">
+        <span class="admin-badge">Admin</span>
+      </div>
+
       <button
         type="submit"
         class="auth-btn"
-        [disabled]="!authForm.form.valid"
+        [disabled]="!authForm.form.valid || isLoading"
       >
-        {{ 'AUTH.LOGIN_BUTTON' | translate }}
+        <span *ngIf="!isLoading">{{ 'AUTH.LOGIN_BUTTON' | translate }}</span>
+        <span *ngIf="isLoading">Connexion en cours...</span>
       </button>
     </form>
 
